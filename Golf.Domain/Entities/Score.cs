@@ -1,6 +1,4 @@
-﻿using Golf.Abstractions;
-
-namespace Golf.Domain.Entities
+﻿namespace Golf.Domain.Entities
 {
     public class Score
     {

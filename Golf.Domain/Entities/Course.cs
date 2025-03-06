@@ -1,4 +1,4 @@
-﻿using Golf.Abstractions;
+﻿using Golf.Domain.Abstractions;
 
 namespace Golf.Domain.Entities
 {

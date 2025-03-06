@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Golf.Domain", "Golf\Golf.Domain.csproj", "{B76DD25C-6FC0-4522-87D1-D8A6CE5786EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Golf.Domain", "Golf.Domain\Golf.Domain.csproj", "{B76DD25C-6FC0-4522-87D1-D8A6CE5786EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Golf.Tests", "Golf.Tests\Golf.Tests.csproj", "{10F75E5C-0955-4C9A-87C8-3E38E6139490}"
 EndProject
