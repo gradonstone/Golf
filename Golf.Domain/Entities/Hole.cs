@@ -4,7 +4,6 @@ namespace Golf.Domain.Entities
 {
     public class Hole : BaseEntity
     {
-        public Guid CourseId { get; private set; }
         public int Number { get; private set; }
         public int Par { get; private set; }
         public string? Decsription { get; private set; }
@@ -15,7 +14,7 @@ namespace Golf.Domain.Entities
             Par = par;
             Decsription = description;
         }
-        public static Hole Create(Guid courseId, int number, int par, string? description)
+        public static Hole Create(int number, int par, string? description)
         {
             return new Hole(Guid.NewGuid(), number, par, description);
         }

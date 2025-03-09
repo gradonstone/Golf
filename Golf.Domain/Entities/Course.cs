@@ -2,7 +2,7 @@
 
 namespace Golf.Domain.Entities
 {
-    public class Course : BaseEntity
+    public class Course : BaseEntity, IAggregateRoot 
     {
         // Consider refactoring to use a HashSet, readonly?
         private HashSet<Hole> Holes { get; set; } = new();
