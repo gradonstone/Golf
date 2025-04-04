@@ -5,24 +5,23 @@ namespace Golf.Domain.Entities
     public class Course : BaseEntity, IAggregateRoot 
     {
         // Consider refactoring to use a HashSet, readonly?
-        private HashSet<Hole> Holes { get; set; } = new();
+        private List<Hole> Holes { get; set; } = new();
 
-        private Course(Guid id) : base(id)
-        {
-        }
+        private Course(Guid id) : base(id) { }
 
         public static Course Create()
         {
             return new Course(Guid.NewGuid());
         }
 
-        public bool AddHole(Hole hole)
+        public void AddHole(Hole hole)
         {
             if (Holes.Any(h => h.Number == hole.Number))
             {
-                return false;
+                // TODO: Consider throwing a custom exception
+                return;
             }
-            return Holes.Add(hole);
+            Holes.Add(hole);
         }
 
         public bool RemoveHole(Hole hole)
@@ -32,7 +31,7 @@ namespace Golf.Domain.Entities
 
         public IList<Hole> GetHoles()
         {
-            return Holes.ToList();
+            return Holes.AsReadOnly();
         }
     }
 }

@@ -5,5 +5,6 @@ namespace Golf.Domain.Repositories
     public interface IRoundRepository
     {
         public Round? GetRound(Guid id);
+        public void Add(Round round);
     }
 }

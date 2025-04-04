@@ -7,17 +7,23 @@ namespace Golf.Domain.Entities
         public RoundStatus Status { get; set; }
 
         private HashSet<Player> Players { get; set; }
-        private List<PlayerScore> PlayerScores { get; init; }
+        private List<PlayerScore> _playerScores = new();
+        public IReadOnlyCollection<PlayerScore> PlayerScores => _playerScores.AsReadOnly();
 
         public Course Course { get; init; }
 
 
-        public Round(HashSet<Player> players, Course course) : base(Guid.NewGuid())
+        public Round(Course course) : base(Guid.NewGuid())
         {
-            Players = players;
             Course = course;
-            PlayerScores = new List<PlayerScore>();
+            _playerScores = new List<PlayerScore>();
         }
+
+        public static Round CreateRound(Course course)
+        {
+            return new Round(course);
+        }
+
 
         public void Start()
         {
@@ -41,12 +47,12 @@ namespace Golf.Domain.Entities
                 throw new Exception("Player is not playing");
             }
 
-            if (!PlayerScores.Any(ps => ps.PlayerId == player.Id))
+            if (!_playerScores.Any(ps => ps.PlayerId == player.Id))
             {
-                PlayerScores.Add(new PlayerScore(player.Id));
+                _playerScores.Add(new PlayerScore(player.Id));
             }
 
-            PlayerScores.First(ps => ps.PlayerId == player.Id).AddStroke(hole, strokeType);
+            _playerScores.First(ps => ps.PlayerId == player.Id).AddStroke(hole, strokeType);
 
         }
 
@@ -63,12 +69,21 @@ namespace Golf.Domain.Entities
                 throw new Exception("Player is not playing");
             }
 
-            if (!PlayerScores.Any(ps => ps.PlayerId == playerId.Id))
+            if (!_playerScores.Any(ps => ps.PlayerId == playerId.Id))
             {
                 throw new Exception("Player has not played hole");
             }
 
-            return PlayerScores.FirstOrDefault(ps => ps.PlayerId == playerId.Id)?.TotalStrokesForHole(hole) ?? 0;
+            return _playerScores.FirstOrDefault(ps => ps.PlayerId == playerId.Id)?.TotalStrokesForHole(hole) ?? 0;
+        }
+
+        public void AddPlayer(Player player)
+        {
+            if (IsPlayerPlaying(player.Id))
+            {
+                throw new Exception("Player is already playing");
+            }
+            Players.Add(player);
         }
 
 
